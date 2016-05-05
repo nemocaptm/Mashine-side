@@ -1,0 +1,10 @@
+E:\!MATFEI\Server\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+E:\!MATFEI\Server\Server\obj\Debug\Server.Forms.HDD.resources
+E:\!MATFEI\Server\Server\obj\Debug\Server.MainForm.resources
+E:\!MATFEI\Server\Server\obj\Debug\Server.Forms.NetworkSettings.resources
+E:\!MATFEI\Server\Server\obj\Debug\Server.Forms.Profile.resources
+E:\!MATFEI\Server\Server\obj\Debug\Server.csproj.GenerateResource.Cache
+E:\!MATFEI\Server\Server\bin\Debug\Server.exe
+E:\!MATFEI\Server\Server\bin\Debug\Server.pdb
+E:\!MATFEI\Server\Server\obj\Debug\Server.exe
+E:\!MATFEI\Server\Server\obj\Debug\Server.pdb
