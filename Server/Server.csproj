@@ -76,6 +76,10 @@
     <Compile Include="Forms\Profile.Designer.cs">
       <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RAM.cs" />
+    <Compile Include="Forms\RAM.Designer.cs">
+      <DependentUpon>RAM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -97,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RAM.resx">
+      <DependentUpon>RAM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

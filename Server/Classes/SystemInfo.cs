@@ -10,10 +10,77 @@ namespace Server
 
 	public class SystemInfo
 	{
+		private Hashtable _formFactor = new Hashtable();
+		
+		private Hashtable _memoryType = new Hashtable();
+		
+		private void _setFormFactorHashTable()
+		{
+			_formFactor["0"] = "Unknown";
+			_formFactor["1"] = "Other";
+			_formFactor["2"] = "SIP";
+			_formFactor["3"] = "DIP";
+			_formFactor["4"] = "ZIP";
+			_formFactor["5"] = "SOJ";
+			_formFactor["6"] = "Proprietary";
+			_formFactor["7"] = "SIMM";
+			_formFactor["8"] = "DIMM";
+			_formFactor["9"] = "TSOP";
+			_formFactor["10"] = "PGA";
+			_formFactor["11"] = "RIMM";
+			_formFactor["12"] = "SODIMM";
+			_formFactor["13"] = "SRIMM";
+			_formFactor["14"] = "SMD";
+			_formFactor["15"] = "SSMP";
+			_formFactor["16"] = "QFP";
+			_formFactor["17"] = "TQFP";
+			_formFactor["18"] = "SOIC";
+			_formFactor["19"] = "LCC";
+			_formFactor["20"] = "PLCC";
+			_formFactor["21"] = "BGA";
+			_formFactor["22"] = "FPBGA";
+			_formFactor["23"] = "LGA";
+		}
+		
+		private void _setMemoryTypeHashTable()
+		{
+			_memoryType["0"] = "Unknown";
+			_memoryType["1"] = "Other";
+			_memoryType["2"] = "DRAM";
+			_memoryType["3"] = "Synchronous DRAM";
+			_memoryType["4"] = "Cache DRAM";
+			_memoryType["5"] = "EDO";
+			_memoryType["6"] = "EDRAM";
+			_memoryType["7"] = "VRAM";
+			_memoryType["8"] = "SRAM";
+			_memoryType["9"] = "RAM";
+			_memoryType["10"] = "ROM";
+			_memoryType["11"] = "Flash";
+			_memoryType["12"] = "EEPROM";
+			_memoryType["13"] = "FEPROM";
+			_memoryType["14"] = "EPROM";
+			_memoryType["15"] = "CDRAM";
+			_memoryType["16"] = "3DRAM";
+			_memoryType["17"] = "SDRAM";
+			_memoryType["18"] = "SGRAM";
+			_memoryType["19"] = "RDRAM";
+			_memoryType["20"] = "DDR";
+			_memoryType["21"] = "DDR2";
+			_memoryType["22"] = "DDR2 FB-DIMM";
+			
+			_memoryType["24"] = "DDR3";
+			_memoryType["25"] = "FBD2";
+		}
+		
 		public SystemInfo()
 		{
-			
+			// заполняем таблицу форм-факторов
+			_setFormFactorHashTable();
+			// заполняем таблицу типов ОЗУ
+			_setMemoryTypeHashTable();
 		}
+		
+		
 		
 		public List<Param> GetHDDInfo()
 		{
@@ -136,6 +203,33 @@ namespace Server
 				// сортируем список перед отправкой
 				results.Sort();
 				
+				return results;
+			 }
+		}
+		
+		public List<Param> GetRAMInfo()
+		{
+			SelectQuery query = new SelectQuery("SELECT * FROM Win32_PhysicalMemory");
+			
+			using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query)) 
+			{				
+				List<Param> results = new List<Param>();
+				foreach (ManagementObject process in searcher.Get()) 
+				{
+					process.Get();
+					
+					results.Add(new Param("Caption", process["Caption"].ToString()));
+					results.Add(new Param("SerialNumber", process["SerialNumber"].ToString()));
+					results.Add(new Param("BankLabel", process["BankLabel"].ToString()));
+					results.Add(new Param("FormFactor", (string)_formFactor[process["FormFactor"].ToString()]));
+					results.Add(new Param("MemoryType", (string)_memoryType[process["MemoryType"].ToString()]));
+					results.Add(new Param("Capacity", ((UInt64)process["Capacity"] / 1000000000).ToString() + " GB"));
+					results.Add(new Param("Speed", process["Speed"].ToString() + " MHz"));
+					
+					results.Add(new Param(string.Empty, string.Empty));
+					
+				}
+							
 				return results;
 			 }
 		}

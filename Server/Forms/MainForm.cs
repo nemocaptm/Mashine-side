@@ -46,5 +46,11 @@ namespace Server
 			Applications appInfo = new Applications();
 			appInfo.ShowDialog();
 		}
+		
+		void Button4Click(object sender, EventArgs e)
+		{
+			RAM ramInfo = new RAM();
+			ramInfo.ShowDialog();
+		}
 	}
 }
