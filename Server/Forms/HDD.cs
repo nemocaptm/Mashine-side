@@ -22,8 +22,6 @@ namespace Server.Forms
 			
 			// заполняем данными DataGridView
 			FillDataGridView();
-			
-			
 
 		}
 		
@@ -62,6 +60,14 @@ namespace Server.Forms
 		private void AddElementToDataGridView(Param element)
 		{
 			var row = new DataGridViewRow();
+			
+			// пустая сточка означет разделитель между 
+			// отдельными интерфейсами
+			if(element.ParamName == string.Empty)
+			{
+				dataGridView1.Rows.Add(row);
+				return;	
+			}
 			
 			// добавляем первую ячейку
 			var cell1 = new DataGridViewTextBoxCell() 
