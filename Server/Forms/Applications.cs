@@ -6,9 +6,7 @@ using System.Windows.Forms;
 
 namespace Server.Forms
 {
-	/// <summary>
-	/// Description of Applications.
-	/// </summary>
+
 	public partial class Applications : Form
 	{
 		public Applications()

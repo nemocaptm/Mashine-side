@@ -9,9 +9,9 @@ using Server.AdditionalClasses;
 namespace Server.Forms
 {
 
-	public partial class RAM : Form
+	public partial class CPU : Form
 	{
-		public RAM()
+		public CPU()
 		{
 			InitializeComponent();
 			
@@ -28,12 +28,12 @@ namespace Server.Forms
 			SystemInfo systemInfo = new SystemInfo();
 
 			// вызываем метод объекта systemInfo, который
-			// собирает инфрормацию об ОЗУ
-			// и помещаем ее в переменную RAMInfo
-			List<Param> RAMInfo = systemInfo.GetRAMInfo();
+			// собирает инфрормацию о процессоре
+			// и помещаем ее в переменную processorInfo
+			List<Param> processorInfo = systemInfo.GetCPUInfo();
 			
 			// добавялем каждый элемент в dataGridView
-			foreach (Param row in RAMInfo) {
+			foreach (Param row in processorInfo) {
 				AddElementToDataGridView(row);
 			}
 		}

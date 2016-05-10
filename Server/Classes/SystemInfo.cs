@@ -10,9 +10,9 @@ namespace Server
 
 	public class SystemInfo
 	{
-		private Hashtable _formFactor = new Hashtable();
-		
+		private Hashtable _formFactor = new Hashtable();		
 		private Hashtable _memoryType = new Hashtable();
+		private Hashtable _CPUArchitecture = new Hashtable();
 		
 		private void _setFormFactorHashTable()
 		{
@@ -72,12 +72,25 @@ namespace Server
 			_memoryType["25"] = "FBD2";
 		}
 		
+		private void _setCPUArchitecture()
+		{
+			_CPUArchitecture["0"] = "x86";
+			_CPUArchitecture["1"] = "MIPS";
+			_CPUArchitecture["2"] = "Alpha";
+			_CPUArchitecture["3"] = "PowerPC";
+			_CPUArchitecture["5"] = "ARM";
+			_CPUArchitecture["6"] = "ia64";
+			_CPUArchitecture["9"] = "x64";
+		}
+		
 		public SystemInfo()
 		{
 			// заполняем таблицу форм-факторов
 			_setFormFactorHashTable();
 			// заполняем таблицу типов ОЗУ
 			_setMemoryTypeHashTable();
+			// заполняем таблицу архитерктур CPU
+			_setCPUArchitecture();
 		}
 		
 		
@@ -226,6 +239,35 @@ namespace Server
 					results.Add(new Param("Capacity", ((UInt64)process["Capacity"] / 1000000000).ToString() + " GB"));
 					results.Add(new Param("Speed", process["Speed"].ToString() + " MHz"));
 					
+					results.Add(new Param(string.Empty, string.Empty));
+					
+				}
+							
+				return results;
+			 }
+		}
+		
+		public List<Param> GetCPUInfo()
+		{
+			SelectQuery query = new SelectQuery("SELECT * FROM Win32_Processor");
+			
+			using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query)) 
+			{				
+				List<Param> results = new List<Param>();
+				foreach (ManagementObject process in searcher.Get()) 
+				{
+					process.Get();
+					
+					results.Add(new Param("Caption", process["Caption"].ToString()));
+					results.Add(new Param("Manufacturer", process["Manufacturer"].ToString()));
+					results.Add(new Param("Architecture", (string)_CPUArchitecture[process["Architecture"].ToString()]));
+					results.Add(new Param("Role", process["Role"].ToString()));
+					results.Add(new Param("NumberOfCores", process["NumberOfCores"].ToString()));	
+					results.Add(new Param("CurrentClockSpeed", process["CurrentClockSpeed"].ToString() + " MHz"));
+					results.Add(new Param("MaxClockSpeed", process["MaxClockSpeed"].ToString() + " MHz"));					
+					results.Add(new Param("L2CacheSize", process["L2CacheSize"].ToString() + " KB"));
+					results.Add(new Param("L3CacheSize", process["L3CacheSize"].ToString() + " KB"));
+
 					results.Add(new Param(string.Empty, string.Empty));
 					
 				}

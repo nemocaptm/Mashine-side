@@ -56,6 +56,10 @@
     <Compile Include="Forms\Applications.Designer.cs">
       <DependentUpon>Applications.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CPU.cs" />
+    <Compile Include="Forms\CPU.Designer.cs">
+      <DependentUpon>CPU.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HDD.cs" />
     <Compile Include="Forms\HDD.Designer.cs">
       <DependentUpon>HDD.cs</DependentUpon>
@@ -86,6 +90,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\Applications.resx">
       <DependentUpon>Applications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CPU.resx">
+      <DependentUpon>CPU.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HDD.resx">
       <DependentUpon>HDD.cs</DependentUpon>

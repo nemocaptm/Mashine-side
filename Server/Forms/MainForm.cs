@@ -52,5 +52,11 @@ namespace Server
 			RAM ramInfo = new RAM();
 			ramInfo.ShowDialog();
 		}
+		
+		void Button5Click(object sender, EventArgs e)
+		{
+			CPU CPUInfo = new CPU();
+			CPUInfo.ShowDialog();
+		}
 	}
 }
