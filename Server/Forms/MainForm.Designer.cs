@@ -101,6 +101,7 @@ namespace Server
 			this.button2.TabIndex = 2;
 			this.button2.Text = "Сеть";
 			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.Button2Click);
 			// 
 			// button3
 			// 
@@ -110,6 +111,7 @@ namespace Server
 			this.button3.TabIndex = 3;
 			this.button3.Text = "Программы";
 			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.Button3Click);
 			// 
 			// button4
 			// 

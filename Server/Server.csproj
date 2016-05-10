@@ -52,6 +52,10 @@
     <Compile Include="AdditionalClasses\Param.cs" />
     <Compile Include="Classes\ProgramState.cs" />
     <Compile Include="Classes\SystemInfo.cs" />
+    <Compile Include="Forms\Applications.cs" />
+    <Compile Include="Forms\Applications.Designer.cs">
+      <DependentUpon>Applications.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HDD.cs" />
     <Compile Include="Forms\HDD.Designer.cs">
       <DependentUpon>HDD.cs</DependentUpon>
@@ -76,11 +80,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\Applications.resx">
+      <DependentUpon>Applications.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\HDD.resx">
       <DependentUpon>HDD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Network.resx">
+      <DependentUpon>Network.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NetworkSettings.resx">
       <DependentUpon>NetworkSettings.cs</DependentUpon>

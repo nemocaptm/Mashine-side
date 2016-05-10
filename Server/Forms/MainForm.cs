@@ -34,5 +34,17 @@ namespace Server
 			HDD HDDForm = new HDD();
 			HDDForm.ShowDialog();
 		}
+		
+		void Button2Click(object sender, EventArgs e)
+		{
+			Network lanInfo = new Network();
+			lanInfo.ShowDialog();
+		}
+		
+		void Button3Click(object sender, EventArgs e)
+		{
+			Applications appInfo = new Applications();
+			appInfo.ShowDialog();
+		}
 	}
 }
