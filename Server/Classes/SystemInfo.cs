@@ -198,6 +198,84 @@ namespace Server
 			 }
 		}
 		
+		public Hashtable GetNetworkInterfaceIndexs()
+		{
+			SelectQuery query = new SelectQuery("SELECT * FROM Win32_NetworkAdapterConfiguration");
+			
+			using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query)) 
+			{				
+				Hashtable results = new Hashtable();
+				foreach (ManagementObject process in searcher.Get()) 
+				{
+					process.Get();
+					
+					string[] IPs = (string[])process["IPAddress"];
+					if(IPs is string[])
+					{
+						results[IPs[0]] = IPs[0];
+					}
+					
+					//results.Add(process["InterfaceIndex"].ToString());				
+				}
+	
+				return results;
+			 }
+		}
+		
+		public List<Route> GetStaticRoutes()
+		{
+			
+			Hashtable interfaceindexs = GetNetworkInterfaceIndexs();
+			
+			List<Route> results = new List<Route>();
+			List<string> testInterface = new List<string>();
+			
+				SelectQuery query = new SelectQuery("SELECT * FROM Win32_IP4RouteTable");// WHERE InterfaceIndex=" + index + ";");
+			
+				using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query)) 
+				{
+					foreach (ManagementObject process in searcher.Get()) 
+					{
+						process.Get();
+						
+						Route route = new Route()
+						{
+							Destination = process["Destination"].ToString(),
+							Mask = process["Mask"].ToString(),
+							Gateway = process["NextHop"].ToString(),
+							Metric = process["Metric1"].ToString()
+						};
+						
+						
+						SelectQuery queryTest = new SelectQuery( "SELECT * FROM Win32_NetworkAdapterConfiguration where Interfaceindex =" + process["InterfaceIndex"].ToString() );
+						if( process["InterfaceIndex"].ToString() == "1" ) 
+						{
+							route.Interface = "127.0.0.1";
+							results.Add(route);
+							continue;
+						}
+							using (ManagementObjectSearcher searcherTest = new ManagementObjectSearcher(queryTest)) 
+							{
+								foreach (ManagementObject processTest in searcherTest.Get()) 
+								{
+									processTest.Get();
+									string[] IPs = (string[])processTest["IPAddress"];
+									if(IPs is string[])
+									{
+										route.Interface = IPs[0];
+									}
+								}
+							}
+							
+						results.Add(route);
+						
+						}			
+				}
+			
+			return results;
+				
+		}
+				
 		public List<string> GetApplicationsInfo()
 		{
 			SelectQuery query = new SelectQuery("SELECT * FROM Win32_Product");
