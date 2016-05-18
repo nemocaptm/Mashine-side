@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="AdditionalClasses\IP.cs" />
     <Compile Include="AdditionalClasses\Param.cs" />
+    <Compile Include="AdditionalClasses\Route.cs" />
+    <Compile Include="AdditionalClasses\Temperature.cs" />
     <Compile Include="Classes\ProgramState.cs" />
     <Compile Include="Classes\SystemInfo.cs" />
     <Compile Include="Forms\Applications.cs" />
@@ -60,7 +62,9 @@
     <Compile Include="Forms\CPU.Designer.cs">
       <DependentUpon>CPU.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\HDD.cs" />
+    <Compile Include="Forms\HDD.cs">
+      <DependentUpon>Applications.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HDD.Designer.cs">
       <DependentUpon>HDD.cs</DependentUpon>
     </Compile>
@@ -83,6 +87,10 @@
     <Compile Include="Forms\RAM.cs" />
     <Compile Include="Forms\RAM.Designer.cs">
       <DependentUpon>RAM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DevicesTemperature.cs" />
+    <Compile Include="Forms\DevicesTemperature.Designer.cs">
+      <DependentUpon>DevicesTemperature.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RAM.resx">
       <DependentUpon>RAM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DevicesTemperature.resx">
+      <DependentUpon>DevicesTemperature.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 using Server.Forms;
@@ -57,6 +58,15 @@ namespace Server
 		{
 			CPU CPUInfo = new CPU();
 			CPUInfo.ShowDialog();
+		}
+		
+				
+		void Button6Click(object sender, EventArgs e)
+		{
+			//Temperature temperatureInfo = new Temperature();
+			//temperatureInfo.ShowDialog();
+			Thread temperatureThread = new Thread(() => new DevicesTemperature().ShowDialog());
+			temperatureThread.Start();
 		}
 	}
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Management;
 
 using Server.AdditionalClasses;
@@ -217,9 +219,11 @@ namespace Server
 					
 					//results.Add(process["InterfaceIndex"].ToString());				
 				}
-	
-				return results;
+
+					return results;
 			 }
+				
+
 		}
 		
 		public List<Route> GetStaticRoutes()
@@ -352,6 +356,51 @@ namespace Server
 							
 				return results;
 			 }
+		}
+		
+		public string GetCPUTemperature()
+		{
+			string result = string.Empty;
+			
+			foreach (var temperature in Temperature.Instances)
+            {
+				result = string.Format("{0:0.00} °C", temperature.CurrentTemperature);
+            }
+			
+			return result;
+		}
+		
+		public List<byte> GetHDDsTemperature()
+		{
+			const byte TEMPERATURE_ATTRIBUTE = 194;
+			List<byte> result = new List<byte>();
+			
+			ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\WMI", "SELECT * FROM MSStorageDriver_ATAPISmartData");
+                // проходимся по всем установленым HHD 
+        	foreach (ManagementObject queryObj in searcher.Get())
+        	{
+            	byte[] arrVendorSpecific = (byte[])queryObj.GetPropertyValue("VendorSpecific");
+            	
+            	// получаем температуру каждого
+                int tempIndex = Array.IndexOf(arrVendorSpecific, TEMPERATURE_ATTRIBUTE);
+           		result.Add(arrVendorSpecific[tempIndex + 5]);	
+        	}
+        	
+        	return result;
+		}
+		
+		public byte GetHDDCount()
+		{
+			byte result = 0;
+			
+			SelectQuery query = new SelectQuery("SELECT * FROM Win32_DiskDrive");
+			
+			using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query)) 
+			{				
+				result = Convert.ToByte(searcher.Get().Count);
+			}
+			
+			return result;
 		}
 		
 		public void GetSystemInfo() {
