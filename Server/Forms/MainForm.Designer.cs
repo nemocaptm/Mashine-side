@@ -47,6 +47,7 @@ namespace Server
 			this.button5 = new System.Windows.Forms.Button();
 			this.button6 = new System.Windows.Forms.Button();
 			this.button7 = new System.Windows.Forms.Button();
+			this.button8 = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -56,7 +57,7 @@ namespace Server
 									this.настройкаToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(221, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(234, 24);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -87,7 +88,7 @@ namespace Server
 			// 
 			this.button1.Location = new System.Drawing.Point(46, 41);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(128, 23);
+			this.button1.Size = new System.Drawing.Size(138, 23);
 			this.button1.TabIndex = 1;
 			this.button1.Text = "Жесткие диски";
 			this.button1.UseVisualStyleBackColor = true;
@@ -97,7 +98,7 @@ namespace Server
 			// 
 			this.button2.Location = new System.Drawing.Point(46, 70);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(128, 23);
+			this.button2.Size = new System.Drawing.Size(138, 23);
 			this.button2.TabIndex = 2;
 			this.button2.Text = "Сеть";
 			this.button2.UseVisualStyleBackColor = true;
@@ -107,7 +108,7 @@ namespace Server
 			// 
 			this.button3.Location = new System.Drawing.Point(46, 99);
 			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(128, 23);
+			this.button3.Size = new System.Drawing.Size(138, 23);
 			this.button3.TabIndex = 3;
 			this.button3.Text = "Программы";
 			this.button3.UseVisualStyleBackColor = true;
@@ -117,7 +118,7 @@ namespace Server
 			// 
 			this.button4.Location = new System.Drawing.Point(46, 128);
 			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(128, 23);
+			this.button4.Size = new System.Drawing.Size(138, 23);
 			this.button4.TabIndex = 4;
 			this.button4.Text = "ОЗУ";
 			this.button4.UseVisualStyleBackColor = true;
@@ -127,7 +128,7 @@ namespace Server
 			// 
 			this.button5.Location = new System.Drawing.Point(46, 157);
 			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(128, 23);
+			this.button5.Size = new System.Drawing.Size(138, 23);
 			this.button5.TabIndex = 5;
 			this.button5.Text = "ЦП";
 			this.button5.UseVisualStyleBackColor = true;
@@ -137,7 +138,7 @@ namespace Server
 			// 
 			this.button6.Location = new System.Drawing.Point(46, 186);
 			this.button6.Name = "button6";
-			this.button6.Size = new System.Drawing.Size(128, 23);
+			this.button6.Size = new System.Drawing.Size(138, 23);
 			this.button6.TabIndex = 6;
 			this.button6.Text = "Температура";
 			this.button6.UseVisualStyleBackColor = true;
@@ -147,16 +148,28 @@ namespace Server
 			// 
 			this.button7.Location = new System.Drawing.Point(46, 216);
 			this.button7.Name = "button7";
-			this.button7.Size = new System.Drawing.Size(128, 23);
+			this.button7.Size = new System.Drawing.Size(138, 23);
 			this.button7.TabIndex = 7;
 			this.button7.Text = "Занятость устройств";
 			this.button7.UseVisualStyleBackColor = true;
+			this.button7.Click += new System.EventHandler(this.Button7Click);
+			// 
+			// button8
+			// 
+			this.button8.Location = new System.Drawing.Point(46, 245);
+			this.button8.Name = "button8";
+			this.button8.Size = new System.Drawing.Size(138, 23);
+			this.button8.TabIndex = 8;
+			this.button8.Text = "Операционная система";
+			this.button8.UseVisualStyleBackColor = true;
+			this.button8.Click += new System.EventHandler(this.Button8Click);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(221, 258);
+			this.ClientSize = new System.Drawing.Size(234, 286);
+			this.Controls.Add(this.button8);
 			this.Controls.Add(this.button7);
 			this.Controls.Add(this.button6);
 			this.Controls.Add(this.button5);
@@ -173,6 +186,7 @@ namespace Server
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.Button button8;
 		private System.Windows.Forms.Button button7;
 		private System.Windows.Forms.Button button6;
 		private System.Windows.Forms.Button button5;

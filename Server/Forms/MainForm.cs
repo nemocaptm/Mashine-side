@@ -68,5 +68,16 @@ namespace Server
 			Thread temperatureThread = new Thread(() => new DevicesTemperature().ShowDialog());
 			temperatureThread.Start();
 		}
+		
+		void Button7Click(object sender, EventArgs e)
+		{
+
+		}
+		
+		void Button8Click(object sender, EventArgs e)
+		{
+			OS osInfo = new OS();
+			osInfo.ShowDialog();
+		}
 	}
 }
