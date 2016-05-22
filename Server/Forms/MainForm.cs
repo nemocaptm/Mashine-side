@@ -14,7 +14,6 @@ namespace Server
 		public MainForm()
 		{
 			InitializeComponent();
-			
 		}
 		
 		
@@ -63,15 +62,14 @@ namespace Server
 				
 		void Button6Click(object sender, EventArgs e)
 		{
-			//Temperature temperatureInfo = new Temperature();
-			//temperatureInfo.ShowDialog();
 			Thread temperatureThread = new Thread(() => new DevicesTemperature().ShowDialog());
 			temperatureThread.Start();
 		}
 		
 		void Button7Click(object sender, EventArgs e)
-		{
-
+		{		
+			Thread busyThread = new Thread(() => new Busy().ShowDialog());
+			busyThread.Start();
 		}
 		
 		void Button8Click(object sender, EventArgs e)

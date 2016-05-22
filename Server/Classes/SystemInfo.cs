@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.PerformanceData;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -403,7 +405,101 @@ namespace Server
 			return result;
 		}
 		
+		public List<Param> GetOperatingSystem()
+		{
+			SelectQuery query = new SelectQuery("SELECT * FROM Win32_OperatingSystem");
+			
+			using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query)) 
+			{				
+				List<Param> results = new List<Param>();
+				foreach (ManagementObject process in searcher.Get()) 
+				{
+					process.Get();
+					
+					results.Add(new Param("Name", process["Name"].ToString()));
+					results.Add(new Param("Version", process["Version"].ToString()));
+					results.Add(new Param("RegisteredUser", process["RegisteredUser"].ToString()));
+					results.Add(new Param("Manufacturer", process["Manufacturer"].ToString()));
+				}
+							
+				return results;
+			 }
+		}
+		
+		
+		public string GetBusyCPU()
+		{
+			string result = string.Empty;
+			
+			ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PerfFormattedData_PerfOS_Processor");
+			foreach (ManagementObject obj in searcher.Get())
+			{
+				result = obj["PercentProcessorTime"].ToString() + " %";
+			}
+
+			return result;
+		}
+		
+		public string GetBusyRAM()
+		{
+			string result = string.Empty;
+
+			ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2",
+                    "SELECT * FROM Win32_OperatingSystem");
+			
+			foreach (ManagementObject queryObj in searcher.Get())
+            {
+            	double free = Double.Parse(queryObj["FreePhysicalMemory"].ToString());
+                double total = Double.Parse(queryObj["TotalVisibleMemorySize"].ToString());
+                result = Math.Round(((total - free)/total * 100), 2).ToString() + " %";
+            }
+			
+			return result;
+		}
+		
+		public List<HDDParam> GetBusyHDDs()
+		{
+			List<HDDParam> results = new List<HDDParam>();
+
+			ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2",
+                    "SELECT * FROM Win32_LogicalDisk");
+			
+			foreach (ManagementObject queryObj in searcher.Get())
+            {
+				double size = 0;
+				double free = 0;
+				
+				if (!string.IsNullOrEmpty(Convert.ToString(queryObj["Size"]))) 
+				{ 
+					size = Double.Parse( ((UInt64)queryObj["Size"] / 1024 / 1024 / 1024).ToString() ) ;
+				}
+				
+				if (!string.IsNullOrEmpty(Convert.ToString(queryObj["FreeSpace"]))) 
+				{ 
+					free = Double.Parse( ((UInt64)queryObj["FreeSpace"] / 1024 / 1024 / 1024).ToString() );
+				}
+				
+				if (string.IsNullOrEmpty(Convert.ToString(queryObj["Name"])) )
+				{ 
+					if( !string.IsNullOrEmpty(Convert.ToString(queryObj["FreeSpace"])) && !string.IsNullOrEmpty(Convert.ToString(queryObj["FreeSpace"])) )
+					{
+						results.Add( new HDDParam("Local Disk", size.ToString() + " GB", Math.Round(((size - free)/size * 100), 2).ToString() + " %") );
+					}	
+				} 
+				else 
+				{ 
+					if( !string.IsNullOrEmpty(Convert.ToString(queryObj["FreeSpace"])) && !string.IsNullOrEmpty(Convert.ToString(queryObj["FreeSpace"])) )
+					{
+						results.Add( new HDDParam(queryObj["Name"].ToString(), size.ToString() + " GB", Math.Round(((size - free)/size * 100), 2).ToString() + " %") );
+					}	
+				}
+            }
+			
+			return results;
+		}
+		
 		public void GetSystemInfo() {
+			
 			
 		}
 	}
