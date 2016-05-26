@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 
+using Server.Classes;
 using Server.Forms;
 
 namespace Server
@@ -14,8 +17,14 @@ namespace Server
 		public MainForm()
 		{
 			InitializeComponent();
+			
+			string I = ProgramState.PCID;
+			
+			POST postInWeb = new POST();
+			postInWeb.SendDevices();
+			postInWeb.SendApps();
+			postInWeb.SendRAMs();
 		}
-		
 		
 		void СоединениеToolStripMenuItemClick(object sender, EventArgs e)
 		{
@@ -58,8 +67,7 @@ namespace Server
 			CPU CPUInfo = new CPU();
 			CPUInfo.ShowDialog();
 		}
-		
-				
+						
 		void Button6Click(object sender, EventArgs e)
 		{
 			Thread temperatureThread = new Thread(() => new DevicesTemperature().ShowDialog());
@@ -76,6 +84,19 @@ namespace Server
 		{
 			OS osInfo = new OS();
 			osInfo.ShowDialog();
+		}		
+		
+		void Timer1Tick(object sender, EventArgs e)
+		{
+			//POST postInWeb = new POST();
+			//postInWeb.Send();
+		}
+		
+		
+		
+		void MainFormFormClosed(object sender, FormClosedEventArgs e)
+		{
+			ProgramState.SaveState();
 		}
 	}
 }

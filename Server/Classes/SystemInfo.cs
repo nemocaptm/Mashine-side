@@ -117,7 +117,7 @@ namespace Server
 					results.Add(new Param("Caption", process["Caption"].ToString()));
 					results.Add(new Param("InterfaceType", process["InterfaceType"].ToString()));
 					results.Add(new Param("Partitions", process["Partitions"].ToString()));
-					results.Add(new Param("Size", ((UInt64)(process["Size"]) / 1000000000).ToString() + " GB"));
+					results.Add(new Param("Size", ((UInt64)(process["Size"]) / (1024 * 1024 * 1024) ).ToString() + " GB"));
 					results.Add(new Param(string.Empty, string.Empty));
 				
 				}
@@ -416,7 +416,7 @@ namespace Server
 				{
 					process.Get();
 					
-					results.Add(new Param("Name", process["Name"].ToString()));
+					results.Add(new Param("Name", process["Caption"].ToString()));
 					results.Add(new Param("Version", process["Version"].ToString()));
 					results.Add(new Param("RegisteredUser", process["RegisteredUser"].ToString()));
 					results.Add(new Param("Manufacturer", process["Manufacturer"].ToString()));
@@ -496,6 +496,24 @@ namespace Server
             }
 			
 			return results;
+		}
+		
+		public string GetPCID()
+		{
+			string result = string.Empty;
+			
+			SelectQuery query = new SelectQuery("SELECT * FROM Win32_DiskDrive");
+			
+			using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query)) 
+			{				
+				foreach (ManagementObject process in searcher.Get()) 
+				{
+					process.Get();					
+					result = process["SerialNumber"].ToString();
+				}
+			 }
+			
+			return result;
 		}
 		
 		public void GetSystemInfo() {

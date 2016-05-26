@@ -14,16 +14,16 @@ namespace Server.Forms
 			InitializeComponent();
 			
 			// если был сохранен уникальный ID, то заполняем textBox
-			if(ProgramState.mobileID != string.Empty)
+			if(ProgramState.UnicalID != string.Empty)
 			{
-				textBox1.Text = ProgramState.mobileID;
+				textBox1.Text = ProgramState.UnicalID;
 			}
 		}
 		
 		// сохранение введенного уникального идентификатора
 		void Button1Click(object sender, EventArgs e)
 		{
-			ProgramState.mobileID = textBox1.Text;
+			ProgramState.UnicalID = textBox1.Text;
 			Close();
 		}
 	}
